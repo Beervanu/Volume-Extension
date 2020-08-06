@@ -1,14 +1,25 @@
-chrome.tabs.onCreated.addListener(initialiseTab);
 chrome.tabs.onRemoved.addListener(deleteTab);
-chrome.runtime.onMessage.addListener(onmessage);
+chrome.runtime.onMessage.addListener(onMessage);
 chrome.storage.sync.clear()
 var storage = {};
 const multiplier = 7;
 const defaultPercent = 100/multiplier;
-
+// chrome.tabs.onUpdated.addListener(onTabUpdate)
 
 console.log('i spy a gamer')
 
+
+// function onTabUpdate(tabId, changeInfo, tab) {
+// 	if (ownProp(changeInfo, "audible")) {
+// 		console.log("!audible: " + changeInfo.audible)
+// 		if (!changeInfo.audible) {
+// 			deleteTab(tabId, {})
+// 			initialiseTab(tab)
+// 		} else if (changeInfo.audible) {
+// 			onMessage({}, {})
+// 		}
+// 	}
+// }
 
 function initialiseTab(tab) {
 	if (!ownProp(storage, tab.id)) {
@@ -31,8 +42,9 @@ function deleteTab(tabId, removeInfo) {
 	}
 }
 
-function onmessage(message, sender) {
+function onMessage(message, sender) {
 	console.log("!message")
+	initialiseTab(message.tab)
 	if (message.action === "changeVolume") {
 		if (ownProp(storage[message.tab.id], "gainNode")) {	
 			console.log("!change volume")
@@ -41,7 +53,6 @@ function onmessage(message, sender) {
 		}
 	} else if (message.action === "turnOff") {
 		console.log("!off")
-		initialiseTab(message.tab)
 		if (ownProp(storage[message.tab.id], 'stream')) {
 			storage[message.tab.id].stream.getAudioTracks()[0].stop()
 		}
@@ -49,7 +60,6 @@ function onmessage(message, sender) {
 		chrome.browserAction.setBadgeText({text: "", tabId: message.tab.id})
 	} else if (message.action === "turnOn") {
 		console.log("!on")
-		initialiseTab(message.tab)
 		var captured = false;
 		if (ownProp(storage[message.tab.id], 'audioContext')) {
 			captured = true;
@@ -59,6 +69,8 @@ function onmessage(message, sender) {
 			chrome.tabCapture.capture({audio: true, video: false}, function(stream) {
 				if (!chrome.runtime.lastError) {
 					console.log("!capture")
+					console.log(stream)
+					stream.getAudioTracks()[0].applyConstraints({sampleRate: 44100})
 					storage[message.tab.id].stream = stream
 					setUp(stream, message.percent, message.tab)
 				} else {
@@ -68,7 +80,7 @@ function onmessage(message, sender) {
 		}
 
 		
-		onmessage({
+		onMessage({
 			action: "changeVolume",
 			tab: message.tab,
 			percent: message.percent/multiplier
