@@ -1,0 +1,225 @@
+html {
+    border-radius: 5px;
+}
+
+body {
+    border-radius: 5px;
+    background-color: #36393F;
+    width: 200px;
+    margin: 0px;
+    height: auto;
+    background-clip: padding-box;
+}
+
+.background {
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.slider {
+    width: 100%;
+    height: 40px;
+    position: relative;
+}
+
+.slider .bar {
+    top: 17px;
+    height: 6px
+}
+
+.slider .grabber {
+    width: 12px;
+    height: 12px;
+    margin-left: -7px;
+    margin-top: 3px;
+    border-radius: 50%
+}
+
+.sliderInput {
+    display: none
+}
+
+.track {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    bottom: 0;
+    left: 5px
+}
+
+.bar {
+    position: relative;
+    top: 16px;
+    height: 8px;
+    border-radius: 4px;
+    display: block;
+    overflow: hidden;
+    background: #4f545c;
+}
+
+.barFill {
+    background: #7289da;
+    height: 100%;
+}
+
+.grabber {
+    width: 10px;
+    height: 24px;
+    margin-left: -5px;
+    top: 25%;
+    /*margin-top: -10px;*/
+    border-radius: 3px;
+    background-color: #fff;
+    border: 1px solid #dcddde;
+    cursor: ew-resize;
+}
+
+.grabber,.mark-1xjQqt {
+    position: absolute;
+    left: 0;
+}
+
+.disabled-bolDAc .grabber {
+    cursor: not-allowed;
+}
+
+.sliderContainer {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0 8px;
+    margin-top: -13px;
+    overflow: visible
+}
+
+.menu {
+    position: relative;
+    background-color: #18191C;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: auto;
+    cursor: default;
+    border-radius: 4px;
+}
+
+.labelContainer {
+	padding: 6px 8px;
+	display: flex;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.label {
+	font-family: Whitney, 'Helvetica Neue';
+	color: #b9bbbe;
+    display: inline-block;
+}
+
+.menuContainer {
+    padding: 5px;
+}
+
+.speech-bubble {
+    visibility: hidden;
+    padding: 2px;
+    text-align: center;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    background: #202225;
+    border-radius: .2em;
+    width: auto;
+    z-index: 5;
+    color: #737881;
+    font-family: sniglet;
+    font-size: 85%;
+}
+
+.speech-bubble:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: #202225;
+    border-bottom: 0;
+    border-left: 0;
+    border-bottom-left-radius: 3px;
+    margin-left: -2.5px;
+    margin-bottom: -5px;
+    z-index: -1;
+    color: white;
+    font-family: sniglet;
+}
+
+.bubbleContainer {
+    position: absolute;
+    height: 100%;
+    right: 20px;
+    left: 10px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 25px;
+    height: 15px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.checkboxSlider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.checkboxSlider:before {
+    position: absolute;
+    content: "";
+    height: 11px;
+    width: 11px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .checkboxSlider {
+    background-color: #2196F3;
+}
+
+input:focus + .checkboxSlider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .checkboxSlider:before {
+    -webkit-transform: translateX(10px);
+    -ms-transform: translateX(10px);
+    transform: translateX(10px);
+}
+
+/* Rounded checkboxSliders */
+.checkboxSlider.round {
+    border-radius: 15px;
+}
+
+.checkboxSlider.round:before {
+    border-radius: 50%;
+}
+
+.checkboxContainer {
+    padding: 1px 8px;
+}

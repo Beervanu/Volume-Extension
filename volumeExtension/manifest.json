@@ -1,0 +1,19 @@
+{
+	"update_url": "https://github.com/Beervanu/Volume-Extension/raw/master/updates.xml",
+	"name": "gaemrs",
+	"version": "1.0.2",
+	"description": "gamers gaming",
+	"permissions": ["tabCapture", "tabs", "activeTab", "storage"],
+	"manifest_version": 2,
+	"background": {
+	    "scripts": ["js/background.js"]
+  	},
+    "browser_action": {
+		"default_popup": "popup.html",
+		"default_icon": {
+			"32": "images/logo32.png",
+			"64": "images/logo64.png",
+			"128": "images/logo128.png"
+		}
+    }    
+}
