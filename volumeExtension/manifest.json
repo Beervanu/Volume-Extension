@@ -2,8 +2,8 @@
 	"update_url": "https://github.com/Beervanu/Volume-Extension/raw/master/updates.xml",
 	"name": "gaemrs",
 	"version": "1.0.3",
-	"description": "gamers gaming",
-	"permissions": ["tabCapture", "tabs", "activeTab", "storage"],
+	"description": "gamers testing",
+	"permissions": ["tabCapture", "tabs", "activeTab", "storage", "desktopCapture"],
 	"manifest_version": 2,
 	"background": {
 	    "scripts": ["js/background.js"]

@@ -99,6 +99,7 @@ body {
     height: auto;
     cursor: default;
     border-radius: 4px;
+    overflow: hidden;
 }
 
 .labelContainer {
@@ -112,10 +113,6 @@ body {
 	font-family: Whitney, 'Helvetica Neue';
 	color: #b9bbbe;
     display: inline-block;
-}
-
-.menuContainer {
-    padding: 5px;
 }
 
 .speech-bubble {
@@ -155,7 +152,6 @@ body {
 
 .bubbleContainer {
     position: absolute;
-    height: 100%;
     right: 20px;
     left: 10px;
 }
@@ -222,4 +218,10 @@ input:checked + .checkboxSlider:before {
 
 .checkboxContainer {
     padding: 1px 8px;
+}
+
+.item {
+    background-color: #24262b;
+    border-radius: 4px;
+    margin: 7px;
 }
