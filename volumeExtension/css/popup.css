@@ -225,3 +225,13 @@ input:checked + .checkboxSlider:before {
     border-radius: 4px;
     margin: 7px;
 }
+
+.tab {
+    border-color: #18191C;
+    border-style: solid;
+    border-radius: 2px;
+}
+
+.tabs {
+    padding: 4px;
+}

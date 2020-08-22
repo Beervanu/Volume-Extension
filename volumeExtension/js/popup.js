@@ -15,6 +15,9 @@ $("#volumeTip").keypress(event => {
 	}
 })
 
+// $("#27").click(function (){navigateToTab(tabs[i])})
+
+
 $("#volumeTip").click(function (){
     var range, selection;
     
@@ -30,7 +33,6 @@ $("#volumeTip").click(function (){
         range.select();
     }
 });
-
 // $("#mastervolumeTip").click(function (){
 //     var range, selection;
     
@@ -90,7 +92,7 @@ $("#volumeTip").focusout(event => {submitTabVolume()})
 // })
 
 function submitTabVolume() {
-	var percent = Number($("#volumeTip").textContent.replace("%", ""))
+	var percent = Number($("#volumeTip").text().replace("%", ""))
 	if (percent >= multiplier *100) {
 		percent=700
 	}
@@ -124,15 +126,11 @@ function submitTabVolume() {
 
 function onMouseLeave(e, master=false) {
 	if (master) {master = "master"} else {master = ""}
-	console.log(master)
-	console.log("leve")
 	$(`#${master}volumeTip`).css("visibility", "hidden")
 };
 
 function onMouseEnter(e, master=false) {
 	if (master) {master = "master"} else {master = ""}
-	console.log("enter")
-	console.log(master)
 	$(`#${master}volumeTip`).css("visibility", "visible")
 };
 
@@ -150,7 +148,26 @@ function onBrowserAction(tab) {
 		turnToState(on, tab)
 		// turnMasterToState(storage.masterState)
 	})
+	// chrome.tabs.query({audible: true}, tabs => {setTabsUp(tabs)})
 };
+
+function setTabsUp(tabs) {
+	var html = ""
+	console.log(tabs)
+	for (i = 0; i < tabs.length; i++) {
+		html = html.concat("<div class=\"tab labelContainer\" id=\"", tabs[i].id, "\">\n", "<div class=\"label\">", tabs[i].title, "</div>\n</div>\n")
+		$(`#${tabs[i].id.toString()}`).click(() => {navigateToTab(tabs[i])})
+	}
+	$("#tabs").html(html)
+}
+
+function navigateToTab(tab) {
+	console.log("nav")
+	chrome.tabs.highlight({
+		tabs: tab.index,
+		windowId: tab.windowId
+	})
+}
 
 function setVolumeElements(percent, master=false) {
 	if (master) {master = "master"} else {master = ""}
