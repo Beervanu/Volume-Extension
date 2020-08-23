@@ -230,8 +230,54 @@ input:checked + .checkboxSlider:before {
     border-color: #18191C;
     border-style: solid;
     border-radius: 2px;
+    display: flex;
+    overflow: hidden;
+    margin-top: 2px;
+}
+
+.tab:hover {
+    background-color: #373a42;
+}
+
+.tab:active {
+    background-color: #18191C;
+}
+
+.tabText {
+    width: auto;
+    white-space: nowrap;
 }
 
 .tabs {
     padding: 4px;
+    padding-top: 0px;
+}
+
+.scroll-left {
+    -moz-transform:translateX(100%);
+    -webkit-transform:translateX(100%);    
+    transform:translateX(100%);
+    -moz-animation: scroll-left 10s linear infinite;
+    -webkit-animation: scroll-left 10s linear infinite;
+    animation: scroll-left 10s linear infinite;
+}
+
+
+@keyframes scroll-left {
+    0%   { 
+        -moz-transform: translateX(0%); 
+        -webkit-transform: translateX(0%); 
+        transform: translateX(0%);       
+    }
+    100% { 
+        -moz-transform: translateX(-100%); 
+        -webkit-transform: translateX(-100%); 
+        transform: translateX(-100%); 
+    }
+}
+
+.placeholder {
+    font-family: Whitney, 'Helvetica Neue';
+    padding-left: 5px;
+    color: #838587;
 }

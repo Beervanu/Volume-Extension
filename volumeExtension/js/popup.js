@@ -1,5 +1,13 @@
 const multiplier = 7;
 const perfectWidth = 31.7344;
+chrome.tabs.onRemoved.addListener((tabId, removeInfo) => {
+	chrome.tabs.query({audible: true}, tabs => {setTabsUp(tabs)})
+})
+chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+	if(ownProp(changeInfo, "audible") || ownProp(changeInfo, "title")){
+		chrome.tabs.query({audible: true}, tabs => {setTabsUp(tabs)})
+	}
+})
 
 $("#volumeSlider").mousemove(event => {onMouseMove(event)});
 
@@ -148,21 +156,35 @@ function onBrowserAction(tab) {
 		turnToState(on, tab)
 		// turnMasterToState(storage.masterState)
 	})
-	// chrome.tabs.query({audible: true}, tabs => {setTabsUp(tabs)})
+	chrome.tabs.query({audible: true}, tabs => {setTabsUp(tabs)})
 };
 
 function setTabsUp(tabs) {
 	var html = ""
-	console.log(tabs)
-	for (i = 0; i < tabs.length; i++) {
-		html = html.concat("<div class=\"tab labelContainer\" id=\"", tabs[i].id, "\">\n", "<div class=\"label\">", tabs[i].title, "</div>\n</div>\n")
-		$(`#${tabs[i].id.toString()}`).click(() => {navigateToTab(tabs[i])})
+	if (tabs.length <= 0) {
+		$("#tabs").html('<div class="placeholder">No tabs are currently playing audio ...</div>')
+	} else {
+		for (i = 0; i < tabs.length; i++) {
+			html = html.concat('<div class="tab labelContainer" id="', tabs[i].id, '">\n', '<div class="label tabText scroll-left">', tabs[i].title, '</div>\n</div>\n')
+			$("#tabs").html(html)
+			$(`#${tabs[i].id.toString()}`).click(event => {
+				console.log(event.currentTarget.id)
+				chrome.tabs.query({}, tabs => {
+					console.log(tabs)
+					for (i = 0; i < tabs.length; i++) {
+						if (tabs[i].id == event.currentTarget.id) {
+							navigateToTab(tabs[i])
+						}
+					}
+				})
+			})
+		}
 	}
-	$("#tabs").html(html)
 }
 
 function navigateToTab(tab) {
 	console.log("nav")
+	console.log(tab)
 	chrome.tabs.highlight({
 		tabs: tab.index,
 		windowId: tab.windowId
@@ -222,13 +244,13 @@ function getCurrentTab(func) {
 }
 
 function turnToState(on, tab) {
+	var result = 100
 	if (on) {
 		chrome.storage.sync.get(tab.id.toString(), storage => {
 			console.log(storage)
-			result = storage[tab.id].tabVolume
-			// if (Number.isNaN(Number(result))) {
-			// 	result = 100;
-			// }
+			if (ownProp(storage, tab.id)) {
+				result = storage[tab.id].tabVolume
+			}
 
 			$("#checkboxLabel").text("On")
 			chrome.runtime.sendMessage({
