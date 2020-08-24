@@ -143,7 +143,7 @@ function onMouseEnter(e, master=false) {
 };
 
 function onBrowserAction(tab) {
-	var on = true;
+	var on = false;
 	var result = 100;
 	chrome.storage.sync.get(null, storage => {
 		if (ownProp(storage, tab.id)) {
