@@ -32,7 +32,7 @@ function initialiseTab(tab) {
 		chrome.storage.sync.get(null, obj => {
 			if (!ownProp(obj, tab.id.toString())) {
 				chrome.storage.sync.set({[tab.id]: {
-					on: true,
+					on: false,
 					tabVolume: 100
 				}})
 			}
